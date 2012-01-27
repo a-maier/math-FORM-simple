@@ -11,6 +11,7 @@ use Carp;
 
 BEGIN {
     $FORM::timeout = 3;
+    $FORM::rm_prompt = 1;
 }
 
 sub new{
@@ -18,6 +19,7 @@ sub new{
     my $self={};
     bless($self,$class);
     $self->{delim}="\n";
+    $self->{prompt}="";
     $self->_spawn(@_);
     return $self;
 }
@@ -28,15 +30,26 @@ sub print{
     print $to_FORM (@_);
 }
 
-sub say{
+sub send{
     my $self=shift;
     my $to_FORM=$self->{to_FORM};
-    say $to_FORM (@_);
+    my @messages=@_;
+    if($FORM::rm_prompt){
+	map {s/\n$self->{prompt}\n//sg} @messages ;
+	map {s/\n$self->{prompt}$//} @messages ;
+    }
+    map {$_.="\n$self->{prompt}\n"} @messages;
+    print $to_FORM (@messages);
 }
 
 sub set_delim{
     my $self=shift;
     $self->{delim}=shift;
+}
+
+sub set_prompt{
+    my $self=shift;
+    $self->{prompt}=shift;
 }
 
 sub read{
