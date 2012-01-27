@@ -95,8 +95,10 @@ sub _spawn{
 	close $self->{from_FORM};
 
 	#clear close-on-exec flags
-	fcntl($FORM_rdr,F_SETFD,0);
-	fcntl($FORM_wtr,F_SETFD,0);
+	fcntl($FORM_rdr,F_SETFD,0)
+	    or die "Failed to clear close-on-exec: $!";;
+	fcntl($FORM_wtr,F_SETFD,0)
+	    or die "Failed to clear close-on-exec: $!";;
 
 	#get file descriptors from handles
 	my $rdr_fd=fileno $FORM_rdr;
