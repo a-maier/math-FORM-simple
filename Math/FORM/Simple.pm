@@ -9,6 +9,9 @@ Math::FORM::Simple - Simple interface to the computer algebra system FORM
 use warnings;
 use strict;
 use 5.10.1;
+
+our $VERSION = '1.0';
+
 use IO::Handle;
 use POSIX qw(WNOHANG);
 use Fcntl qw(F_SETFD);
