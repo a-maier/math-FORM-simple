@@ -244,7 +244,6 @@ sub _spawn{
 
 	my $cmd="$form_cmd -pipe $rdr_fd,$wtr_fd ";
 	$cmd.=$form_file if $form_file;
-	say "starting $cmd";
 	exec "$cmd"
 	    or croak "Failed to exec '$cmd': $!";
     }
