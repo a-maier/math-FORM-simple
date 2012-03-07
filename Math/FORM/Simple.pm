@@ -262,11 +262,11 @@ sub DESTROY{
 	$self->kill(15);
 	my $life_time = time()+$Math::FORM::Simple::timeout;
 	while($life_time > time()){
-	    if(waitpid($self->{FORM_pid},WNOHANG)) {
+	    if(! (kill 0 => $self->{FORM_pid})){
 		$?=$status;
 		return;
 	    };
-	    sleep 1;
+	    usleep 0.1;
 	}
 	#kill it
 	$self->kill(9);
@@ -282,8 +282,8 @@ sub DESTROY{
 =item C<$Math::FORM::Simple::timeout>
 
 When the object is destroyed, it first tries to terminate the associated FORM 
-process gracefully. This flag sets the time after which brute force will be 
-used.
+process gracefully. This flag sets the time in seconds after which brute 
+force will be used.
 
 =item C<$Math::FORM::Simple::rm_prompt>
 
