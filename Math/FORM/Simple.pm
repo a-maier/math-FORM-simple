@@ -251,7 +251,6 @@ sub _spawn{
 
 sub DESTROY{
     my $self=shift;
-    my $status=$?;
     my $to_FORM=$self->{to_FORM};
     my $from_FORM=$self->{from_FORM};
     close  $self->{to_FORM} if $self->{to_FORM} ;
@@ -261,16 +260,12 @@ sub DESTROY{
 	$self->kill(15);
 	my $life_time = time()+$Math::FORM::Simple::timeout;
 	while($life_time > time()){
-	    if(! (kill 0 => $self->{FORM_pid})){
-		$?=$status;
-		return;
-	    };
+	    return if(! $self->kill(0));
 	    usleep 0.1;
 	}
 	#kill it
 	$self->kill(9);
     }
-    $?=$status; #restore status
 }
 
 
