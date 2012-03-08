@@ -7,6 +7,9 @@ use ExtUtils::MakeMaker;
 WriteMakefile(
     NAME => 'Math::FORM::Simple',
     VERSION_FROM => 'lib/Math/FORM/Simple.pm',
+    CONFIGURE_REQUIRES => {
+        'ExtUtils::MakeMaker'     => '0',
+    },
     PREREQ_PM => {
 	 'IO::Handle' => 0,
 	 'Fcntl' => 0,
