@@ -1,0 +1,19 @@
+The preferred way to install this module is via cpan. If you do not have
+root permissions I would suggest to have a look at the excellent
+local::lib CPAN module. For manual installation run
+
+perl Makefile.PL && make && make test && make install
+
+In order to use this module you need at least perl version 5.10.1. In addition
+the following modules are required:
+
+Carp
+Fcntl
+IO::Handle
+Time::HiRes
+
+All of these modules are part of perl core and should already be
+included in your perl distribution.
+
+Obviously Math::FORM::Simple needs a working FORM installation to be useful.
+
