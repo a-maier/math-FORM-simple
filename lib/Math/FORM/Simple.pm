@@ -13,7 +13,6 @@ use 5.10.1;
 our $VERSION = '1.0';
 
 use IO::Handle;
-use POSIX qw(WNOHANG);
 use Fcntl qw(F_SETFD);
 use Carp;
 use Time::HiRes qw(usleep);
@@ -118,7 +117,7 @@ this before the end of your perl script (or, more precisely, before your
 Math::FORM::Simple object is being destroyed). If you don't wait the
 FORM process will be terminated forcefully at that point. 
 
-=comment
+=for comment
 
 You can give a flag as an argument which will be passed to a L<waitpid>
 system call.
@@ -128,8 +127,8 @@ system call.
 sub wait{
     my $self=shift;
     #TODO $flag is not being used
-    my $flag=shift;
-    $flag // ($flag=0);
+    #my $flag=shift;
+    #$flag // ($flag=0);
     usleep 0.1 while(kill 0 => $self->{FORM_pid});
 }
 
@@ -308,7 +307,7 @@ Andreas Maier, E<lt>maier@to.infn.itE<gt>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright (C) 2010-2011 by Andreas Maier
+Copyright (C) 2012 by Andreas Maier
 
 This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself, either Perl version 5.10.1 or,
