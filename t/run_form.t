@@ -87,7 +87,7 @@ __EOF__
 	 "change FORM prompt (1)"
 	  );
       ok(
-	  $form_proc->send('#toexternal "Hello; world;\n@\n"'),
+	  $form_proc->send('#toexternal "Hello; world;"'),
 	 "change FORM prompt (2)"
 	  );
       is(
