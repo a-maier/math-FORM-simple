@@ -178,7 +178,7 @@ sub set_prompt{
 
 Print a string to the pipe to the FORM process. This is a rather
 low-level method, so in most cases the B<send> method should be used
-instead . In particular the FORM prompt is not being set and there is no
+instead . In particular the FORM prompt is not being sent and there is no
 guarantee that FORM will actually ever read what is printed. If the string
 being printed however contains the FORM prompt somewhere in the middle,
 FORM will read up to that point and then stop. Depending on your system
