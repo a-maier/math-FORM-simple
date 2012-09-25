@@ -1,8 +1,8 @@
-package Math::FORM::Simple;
+package Math::FORM;
 
 =head1 NAME
 
-Math::FORM::Simple - Simple interface to the computer algebra system FORM
+Math::FORM - Interface to the computer algebra system FORM
 
 =cut
 
@@ -19,9 +19,9 @@ use Time::HiRes qw(usleep);
 
 =head1 SYNOPSIS
 
- use Math::FORM::Simple;
+ use Math::FORM;
 
- my $FORM_proc = Math::FORM::Simple->run($FORM_cmd => $FORM_file);
+ my $FORM_proc = Math::FORM->run($FORM_cmd => $FORM_file);
 
  $FORM_proc->send("whatever your FORM program expects"); 
  my $from_FORM = $FORM_proc->read; 
@@ -31,7 +31,7 @@ use Time::HiRes qw(usleep);
 
 =head1 DESCRIPTION
 
-Math::FORM::Simple aims to make communication with FORM programs as
+Math::FORM aims to make communication with FORM programs as
 simple as possible. It provides methods to start up FORM programs, send
 commands, read the programs' answers, and - if push comes to shove -
 kill them.
@@ -43,7 +43,7 @@ connection. Afterwards messages can be sent and received using
 C<#toexternal "message text"> and C<#fromexternal>, respectively. For
 more information on the FORM side of things, read the chapter on
 external communication in the FORM reference manual. All ugly things are
-done for you by Math::FORM::Simple, so you can skip those parts.
+done for you by Math::FORM, so you can skip those parts.
 
 =cut
 
@@ -81,7 +81,7 @@ sub send{
     my $to_FORM=$self->{to_FORM};
     my @messages=@_;
     my $prompt_removed=0;;
-    if($Math::FORM::Simple::rm_prompt){
+    if($Math::FORM::rm_prompt){
 	map {
 	    $prompt_removed = 1 if s/\n$self->{prompt}\n//sg;
 	    $_
@@ -114,7 +114,7 @@ sub read{
 
 Wait for the FORM process to finish. It is usually a good idea to do
 this before the end of your perl script (or, more precisely, before your
-Math::FORM::Simple object is being destroyed). If you don't wait the
+Math::FORM object is being destroyed). If you don't wait the
 FORM process will be terminated forcefully at that point. 
 
 =for comment
@@ -163,7 +163,7 @@ sub set_delim{
 
 Change the prompt. This is relevant if (and only if) you have changed
 the prompt in your FORM program with the C<#prompt> statement. Of
-course, the Math::FORM::Simple prompt must always match the one defined
+course, the Math::FORM prompt must always match the one defined
 in your FORM program for things to work properly.
 
 =cut
@@ -257,7 +257,7 @@ sub DESTROY{
     if($self->{FORM_pid}){
 	#give FORM some time to die
 	$self->kill(15);
-	my $life_time = time()+$Math::FORM::Simple::timeout;
+	my $life_time = time()+$Math::FORM::timeout;
 	while($life_time > time()){
 	    return if(! $self->kill(0));
 	    usleep 0.1;
@@ -272,18 +272,18 @@ sub DESTROY{
 
 =over
 
-=item C<$Math::FORM::Simple::timeout>
+=item C<$Math::FORM::timeout>
 
 When the object is destroyed, it first tries to terminate the associated FORM 
 process gracefully. This flag sets the time in seconds after which brute 
 force will be used.
 
-=item C<$Math::FORM::Simple::rm_prompt>
+=item C<$Math::FORM::rm_prompt>
 
 If set to zero, the B<send> method will no longer remove the FORM prompt from 
 messages.
 
-=item C<$Math::FORM::Simple::warn>
+=item C<$Math::FORM::warn>
 
 Disables non-fatal warnings when set to zero.
 
@@ -292,9 +292,9 @@ Disables non-fatal warnings when set to zero.
 =cut
 
 BEGIN {
-    $Math::FORM::Simple::timeout = 3;
-    $Math::FORM::Simple::rm_prompt = 1;
-    $Math::FORM::Simple::warn = 1;
+    $Math::FORM::timeout = 3;
+    $Math::FORM::rm_prompt = 1;
+    $Math::FORM::warn = 1;
 }
 
 =head1 SEE ALSO

@@ -4,7 +4,7 @@ use warnings;
 use File::Temp;
 use Test::More tests => 11;
 
-BEGIN { use_ok('Math::FORM::Simple') };
+BEGIN { use_ok('Math::FORM') };
 
 #try to find a FORM executable
 my $form_cmd;
@@ -63,7 +63,7 @@ __EOF__
       
       my $form_proc;
       ok(
-	  $form_proc = Math::FORM::Simple->run(
+	  $form_proc = Math::FORM->run(
 	   $form_cmd => $tmp_hdl->filename
 	 ), 
 	 "launch FORM process"

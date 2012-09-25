@@ -15,5 +15,5 @@ Time::HiRes
 All of these modules are part of perl core and should already be
 included in your perl distribution.
 
-Obviously Math::FORM::Simple needs a working FORM installation to be useful.
+Obviously Math::FORM needs a working FORM installation to be useful.
 
